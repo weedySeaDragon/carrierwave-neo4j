@@ -2,7 +2,7 @@ require "spec_helper"
 
 # This spec mirrors the specs found in the CarrierWave::Orm::ActiveRecord spec:
 # https://github.com/carrierwaveuploader/carrierwave/blob/master/spec/orm/activerecord_spec.rb
-# 
+#
 # Use it to sanity-check behaviour since ActiveGraph and ActiveRecord are
 # NOT symmetrical.
 
@@ -10,7 +10,7 @@ class DefaultUploader < CarrierWave::Uploader::Base ; end
 
 def reset_class
   Object.send(:remove_const, "User") rescue nil
-  Object.const_set("User", Class.new())
+  Object.const_set("User", Class.new)
   User.class_eval do
     include ActiveGraph::Node
     property :image, type: String
