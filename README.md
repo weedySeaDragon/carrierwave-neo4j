@@ -47,12 +47,41 @@ brew install imagemagick
 
 ```sh
 bundle install
-rake neo4j:install[community-4.0.11,test]
+
+
+rake neo4j:install[community-4.0.11,test] # this no longer works
+
+#  Go to https://neo4j.com/download/  to download the latest version of Neo4j. 
+#  Extract it into  the local [project directory]/db/neo4j/[environment]
+#   ex: [project directory]/db/neo4j/test
+
+# Ensure that your NEO4J_HOME points to  [project directory]/db/neo4j/[environment] that you're using
+echo $NEO4J_HOME # or whatever command works on your OS
+
+# Ensure that you are running a version of java that is compatible with neo4j
+java --version
+
+# If you need to use a different version, ensure that JAVA_HOME is pointing to the correct java directory
+echo $JAVA_HOME # or whatever command works on your os
+
 rake neo4j:start[test]
 rake spec
 ```
 
 ### Troubleshooting
+
+#### Neo4j says it starts, but doesn't
+* Double-check your NEO4J_HOME directory and ensure it's the right one. This is important if you have Neoj Desktop installed.
+* Ensure your version of java is correct
+* You may see more debugging output if you try to start a console with the verbose flag:   `neo4j console --verbose`.  If you see a lot of java error messages, it may be that you're using a version of java that is not compatible with Neo4j.
+* Check to see if another instance of neo4j is running by looking at the TCP connections
+
+  `   lsof -wni tcp  # macOS`
+    
+  You should not see any other `neo4j`- related programs or processes .  If you do, track them down and stop those programs/processes.
+
+
+
 
 #### Files are nil
 

@@ -7,7 +7,7 @@ class DatabaseCleaner
   def self.clean
     DatabaseCleaner.new.clean_db
   end
-  
+
   def self.avoid_validation
     # migrations and db cleanup have to happen outside of validations
     # or they never succeed
@@ -19,10 +19,10 @@ class DatabaseCleaner
   def clean_db
     execute("match (n) detach delete n;")
     execute("call db.constraints").each do |constraint|
-      execute "drop #{constraint[:description]}"
+      execute "DROP CONSTRAINT #{constraint[:name]}"
     end
     execute("call db.indexes").each do |index|
-      execute "drop #{index[:description]}"
+      execute "DROP INDEX #{index[:name]}"
     end
   end
 
